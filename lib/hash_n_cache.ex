@@ -4,6 +4,11 @@ defmodule HashNCache do
     :ets.new(cache_name, [:set, :public, :named_table])
   end
 
+  def clear(cache_name) when cache_name |> is_atom do
+    :ets.delete(cache_name)
+    new_cache(cache_name)
+  end
+
   def insert(cache_name, key, value) do
     :ets.insert_new(cache_name, {key, value})
   end
